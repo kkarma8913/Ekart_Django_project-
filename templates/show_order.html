@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+
+{% block scroll_img %}
+    
+{% endblock scroll_img %}
+    
+
+
+{% block body %}
+
+<h1>show Order</h1>
+<hr>
+
+<table class="table table-hover table-striped table-bordred border-dark">
+    <thead >
+        <tr>
+            <th>Product Image</th>
+            <th>Product name</th>
+            <th>Product price</th>
+            <th>Product Qty</th>
+            <th>Total Price</th>
+            <th>Order Date</th>
+            <th>Payment Mode</th>
+            <th>Order Status</th>
+            <th>Return</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for i in order_data %}
+        <tr>
+            <td><img src="{{i.product.pro_image.url}}" alt="" height="50" width="50"></td>
+            <td>{{i.product.pro_title}}</td>
+            <td>{{i.product.pro_price}}</td>
+            <td>{{i.qty}}</td>
+            <td>{{i.total_price}}</td>
+            <td>{{i.order_date}}</td>
+            <td>{{i.payment_mode}}</td>
+            <td>{{i.order_status}}</td>
+            <th><a href="" class="btn btn-danger">Cancel</a></th>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+ 
+</table>
+
+
+
+    
+{% endblock body %}
+
+    

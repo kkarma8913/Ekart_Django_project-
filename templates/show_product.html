@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block scroll_img %}
+
+{% endblock scroll_img %}
+
+
+{% block body %}
+
+<div class="container-fluid">
+
+
+    {% if messages %}
+
+
+    {% for message in messages %}
+
+    {{message}}
+
+    {% endfor %}
+
+    {% endif %}
+
+<div class="container-fluid mt-3">
+
+    <form action="{% url 'sort_by' %}" method="POST">
+        {% csrf_token %}
+    <label for="">Sort By</label>
+    <select name="sort_by" id="">
+        <option value="default" selected disabled>Select Options</option>
+        <option value="lh">Price low to high</option>
+        <option value="hl">Price high to low</option>
+
+    </select>
+
+    <input type="hidden" name="cat" value="{{cat_obj.id}}">
+
+    <input type="submit" value="submit" class="btn btn-sm btn-primary">
+
+</form>
+</div>
+
+    <div class="row mt-5">
+        {% for i in product_data %}
+
+        <div class="col-md mx-2 text-center p-5" style="border: 2px solid rgb(13, 163, 160); border-radius: 10px; ">
+
+            <form action="" method="POST">
+                {% csrf_token %}
+
+                <div clas="row ">
+                    <img src="{{i.pro_image.url}}" alt="" width="200" height="200">
+                </div>
+                <div class="row mt-3">
+                    <input type="hidden" value="{{i.pro_id}}" name="pro_id">
+                    <div class="col-md">
+                        name: {{i.pro_title}}
+                    </div>
+                    <div class="col-md">
+                        price : {{i.pro_price}}
+                    </div>
+                    <div class="col-md">
+                        Select Qty : <input type="text" name="quantity">
+                    </div>
+                    <div class="col-md">
+                        
+                        {% if request.session.uname %}
+                            <input type="submit" value="submit" class="btn btn-primary">
+                        {% else %}
+                        <input  type="submit" value="submit" class="btn btn-primary" disabled>
+
+                        {% endif %}
+                            
+                        
+                    </div>
+            </form>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+
+</div>
+{% endblock body %}

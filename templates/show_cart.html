@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+
+{% block scroll_img %}
+    
+{% endblock scroll_img %}
+    
+
+
+{% block body %}
+
+<h1>show cart</h1>
+<hr>
+
+<table class="table table-hover table-striped table-bordred border-dark">
+    <thead >
+        <tr>
+            <th>Product Image</th>
+            <th>Product name</th>
+            <th>Product price</th>
+            <th>Product Qty</th>
+            <th>Total Price</th>
+            <th>Remove</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for i in cart_data %}
+        <tr>
+            <td><img src="{{i.product.pro_image.url}}" alt="" height="50" width="50"></td>
+            <td>{{i.product.pro_title}}</td>
+            <td>{{i.product.pro_price}}</td>
+            <td>{{i.qty}}</td>
+            <td>{{i.total_price}}</td>
+            <th><a href="{% url 'cart_remove' i.id %}" class="btn btn-danger">Remove</a></th>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3"></td>
+
+           
+            <td><p class="fs-4 fw-bold">{{quantity}}</p> </td>
+            
+            <td><p class="fs-4 fw-bold">{{total_sum}}</p> </td>
+           <td> <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Order
+              </button></td>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+<!-- Button trigger modal -->
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Order</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{% url 'order' %}" method="POST">
+          {% csrf_token %}
+        <div class="modal-body">
+          
+            
+
+                <label for="">Payment Mode</label>
+                <select id="" name="pay">
+                    <option value="COD">COD</option>
+                    <option value="Credit card">Credit card</option>
+                    <option value="Debit card">Debit card</option>
+                    <option value="UPI">UPI</option>
+                </select>
+        </div>
+        <div class="modal-footer">
+          <input type="submit" value="Confirm" class="btn btn-primary">
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+{% endblock body %}
+
+    
